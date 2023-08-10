@@ -1,154 +1,36 @@
-// Задание 1 Дан объект numbers. Необходимо в консоль вывести все значения больше или равные 3.
-const numbers = {
-   keyin1: 1,
-   keyin2: 2,
-   keyin3: 3,
-   keyin4: 4,
-   keyin5: 5,
-   keyin6: 6,
-   keyin7: 7,
-};
-for (const key in numbers) {
-   if (numbers[key] >= 3) {
-      console.log(numbers[key]);
-   }
-};
+//1) Дан массив const arr = [1, 5, 7, 9] с помощью Math.min и spread оператора, найти минимальное число в массиве, решение задание должно состоять из одной строки
 
-// Задание 2 Необходимо из объекта, который лежит в константе post вывести значения, к которым приписан комментарий, в консоль.
-const post = {
-   author: "John", // вывести этот текст
-   postId: 23,
-   comments: [
-      {
-         userId: 10,
-         userName: "Alex",
-         text: "lorem ipsum",
-         rating: {
-            likes: 10,
-            dislikes: 2, // вывести это число
-         },
+const arr = [1, 5, 7, 9];
+let minValue = Math.min(...arr);
+console.log("Minimum element is:" + minValue);
+
+//2) Напишите функцию createCounter, которая создает счетчик и возвращает объект с двумя методами: increment и decrement. Метод increment 
+//должен увеличивать значение счетчика на 1, а метод decrement должен уменьшать значение счетчика на 1. Значение счетчика должно быть доступно только через методы объекта, а не напрямую.
+
+function createCounter(){
+   let Count = 1;
+   return {
+      increment () {
+         Count++;
       },
-      {
-         userId: 5, // вывести это число
-         userName: "Jane",
-         text: "lorem ipsum 2", // вывести этот текст
-         rating: {
-            likes: 3,
-            dislikes: 1,
-         },
+      decrement () {
+         Count--;
       },
-   ],
-};
-console.log(`${post.author}
-${post.comments[0].rating.dislikes}
-${post.comments[1].userId}
-${post.comments[1].text}
-`);
-
-// Задание 3 Дан массив products, необходимо цену каждого продукта уменьшить на 15% используя метод forEach.
-const products = [
-   {
-      id: 3,
-      price: 200,
-   },
-   {
-      id: 4,
-      price: 900,
-   },
-   {
-      id: 1,
-      price: 1000,
-   },
-];
-products.forEach(item => {
-    item.price -= (item.price * 0.15);
-});
-console.log(products);
-
-// Задание 4 
-//1. Необходимо вывести в консоль массив продуктов в котором есть хоть одна фотография используя метод filter. Исходные данные - массив products.
-//2. Необходимо отсортировать массив products используя метод sort по цене, начиная с самой маленькой, заканчивая самой большой ценой, после чего вывести отсортированный массив в консоль.
-
-// версия 1
-const products1 = [
-   {
-      id: 3,
-      price: 127,
-      photos: [
-         "1.jpg",
-         "2.jpg",
-      ],
-   },
-   {
-      id: 5,
-      price: 499,
-      photos: [],
-   },
-   {
-      id: 10,
-      price: 26,
-      photos: [
-         "3.jpg",
-      ],
-   },
-   {
-      id: 8,
-      price: 78,
-   },
-];
-
-let productsNew = products1.filter(item => item.photos ? item.photos.length : undefined);
-console.log(productsNew);
-
-// версия 2
-const products2 = [
-    {
-        id: 3,
-        price: 127,
-        photos: [
-            "1.jpg",
-            "2.jpg",
-        ],
-    },
-    {
-        id: 5,
-        price: 499,
-        photos: [],
-    },
-    {
-        id: 10,
-        price: 26,
-        photos: [
-            "3.jpg",
-        ],
-    },
-    {
-        id: 8,
-        price: 78,
-    },
-];
-
-const newProducts = products2.filter(item => {
-    if (item.photos != false) return item.photos;
-})
-console.log(newProducts);
-
-const newProducts2 = products2.sort((a, b) => {
-    return a.price - b.price;
-}
-);
-console.log(newProducts2);
-
-// Задание 5 Дано 2 массива
-// Вам необходимо объединить 2 этих массива, чтобы значения первого массива были ключами, а значения второго массива — значениями.
-const en = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
-const ru = ["понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье"];
-const weekDay = {};
-if (en.length !== ru.length) {
-   console.log('Разная длинна массивов');
-} else {
-   for (let i = 0; i < en.length; i++) {
-      weekDay[en[i]] = ru[i];
+      getValue(){
+         return Count 
+      },
+                     }
    }
-}
-console.log(weekDay);
+const counter = new createCounter();
+counter.increment();//1+1=2
+counter.increment(); //2+1=3
+counter.increment();//3+1=4
+counter.decrement();//4-1=3
+alert( counter.getValue() );// ответ 3
+   
+//3) Напишите рекурсивную функцию findElementByClass, которая принимает корневой элемент дерева DOM и название класса в качестве аргументов и возвращает
+// первый найденный элемент с указанным классом в этом дереве.
+//Пример
+//const rootElement = document.getElementById('root');
+//const targetElement = findElementByClass(rootElement, 'my-class');
+//console.log(targetElement);
