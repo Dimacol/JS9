@@ -1,36 +1,49 @@
-//1) Дан массив const arr = [1, 5, 7, 9] с помощью Math.min и spread оператора, найти минимальное число в массиве, решение задание должно состоять из одной строки
+//Задание 1: "Управление библиотекой книг"
 
-const arr = [1, 5, 7, 9];
-let minValue = Math.min(...arr);
-console.log("Minimum element is:" + minValue);
+///Реализуйте класс Book, представляющий книгу, со следующими свойствами и методами:
 
-//2) Напишите функцию createCounter, которая создает счетчик и возвращает объект с двумя методами: increment и decrement. Метод increment 
-//должен увеличивать значение счетчика на 1, а метод decrement должен уменьшать значение счетчика на 1. Значение счетчика должно быть доступно только через методы объекта, а не напрямую.
+//Свойство title (название) - строка, название книги.
+//Свойство author (автор) - строка, имя автора книги.
+////Свойство pages (количество страниц) - число, количество страниц в книге.
+//Метод displayInfo() - выводит информацию о книге (название, автор и количество страниц).
 
-function createCounter(){
-   let Count = 1;
-   return {
-      increment () {
-         Count++;
-      },
-      decrement () {
-         Count--;
-      },
-      getValue(){
-         return Count 
-      },
-                     }
+// Пример использования класса
+class Book {
+   constructor(title,author,pages){
+      this.title = title;
+      this.author = author;
+      this.pages = pages;
    }
-const counter = new createCounter();
-counter.increment();//1+1=2
-counter.increment(); //2+1=3
-counter.increment();//3+1=4
-counter.decrement();//4-1=3
-alert( counter.getValue() );// ответ 3
-   
-//3) Напишите рекурсивную функцию findElementByClass, которая принимает корневой элемент дерева DOM и название класса в качестве аргументов и возвращает
-// первый найденный элемент с указанным классом в этом дереве.
-//Пример
-//const rootElement = document.getElementById('root');
-//const targetElement = findElementByClass(rootElement, 'my-class');
-//console.log(targetElement);
+   displayInfo(){    
+      console.log( `Title: ${this.title}, Author: ${this.author}, Pages: ${this.pages}`);
+   }
+}
+
+
+const book = new Book("BookName1", "Author1", 123);
+book.displayInfo(); // "Title: BookName1, Author: Author1, Pages: 123"
+
+
+
+// Задание 2: "Управление списком студентов"
+// Реализуйте класс Student, представляющий студента, со следующими свойствами и методами:
+
+// Свойство name (имя) - строка, имя студента.
+// Свойство age (возраст) - число, возраст студента.
+// Свойство grade (класс) - строка, класс, в котором учится студент.
+// Метод displayInfo() - выводит информацию о студенте в консоль.
+
+// Пример использования класса
+class Student {
+   constructor(name,age,grade){
+      this.name = name;
+      this.age = age;
+      this.grade = grade;
+   }
+   displayInfo(){    
+      console.log( `Name: ${this.name}, Age: ${this.age}, Grade: ${this.grade}`);
+   }
+
+}
+const student = new Student("John Smith", 16, "10th grade");
+student.displayInfo(); // "Name: John Smith, Age: 16, Grade: 10th grade"
