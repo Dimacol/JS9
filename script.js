@@ -1,49 +1,89 @@
-//Задание 1: "Управление библиотекой книг"
 
-///Реализуйте класс Book, представляющий книгу, со следующими свойствами и методами:
+// Урок 3. Объектно-ориентированное программирование в Javascript
+// Домашнее задание
+console.log(" -------------------------------------------------------------");
+console.log(`Задание 1: Управление персоналом компании`);
 
-//Свойство title (название) - строка, название книги.
-//Свойство author (автор) - строка, имя автора книги.
-////Свойство pages (количество страниц) - число, количество страниц в книге.
-//Метод displayInfo() - выводит информацию о книге (название, автор и количество страниц).
+// Реализуйте класс Employee (сотрудник), который имеет следующие свойства и методы:
+// Свойство name (имя) - строка, имя сотрудника.
+// Метод displayInfo() - выводит информацию о сотруднике (имя).
+class Employee {
+    constructor(name) {
+        this.name = name;
+    }
+    displayInfo() {
+        console.log(`Name: ${this.name}`);
+    }
+}
 
-// Пример использования класса
-class Book {
-   constructor(title,author,pages){
-      this.title = title;
-      this.author = author;
-      this.pages = pages;
+// Реализуйте класс Manager (менеджер), который наследует класс Employee и имеет дополнительное свойство и метод:
+
+// Свойство department (отдел) - строка, отдел, в котором работает менеджер.
+// Метод displayInfo() - переопределяет метод displayInfo() родительского класса и выводит информацию о менеджере (имя и отдел).
+class Manager extends Employee {
+    constructor(name, department) {
+        super(name);
+        // this.name = name+' 1';
+        this.department = department;
+    };
+
+    displayInfo() {
+        console.log(`Name: ${this.name} \nDepartment: ${this.department}`);
+    };
+}
+
+// // Пример использования классов
+const employee = new Employee("John Smith");
+employee.displayInfo();
+// Вывод:
+// Name: John Smith
+
+const manager = new Manager("Jane Doe", "Sales");
+manager.displayInfo();
+// Вывод:
+// Name: Jane Doe
+// Department: Sales
+
+console.log(" -------------------------------------------------------------");
+
+console.log(`Задание 2: Управление списком заказов`);
+
+// Реализуйте класс Order (заказ), который имеет следующие свойства и методы:
+
+// Свойство orderNumber (номер заказа) - число, уникальный номер заказа.
+// Свойство products (продукты) - массив, содержащий список продуктов в заказе.
+// Метод addProduct(product) - принимает объект product и добавляет его в список продуктов заказа.
+// Метод getTotalPrice() - возвращает общую стоимость заказа, основанную на ценах продуктов.
+class Order {
+   constructor(orderNumber) {
+       this.orderNumber = orderNumber;
    }
-   displayInfo(){    
-      console.log( `Title: ${this.title}, Author: ${this.author}, Pages: ${this.pages}`);
+   products = [];//массив продуктов
+   addProduct(product) {
+       this.products.push(product);// принимает объект product и добавляет его в список продуктов заказа.
+   }
+   getTotalPrice() {
+       return this.products.reduce((acc, value) => acc + value.price, 0);//возвращает общую стоимость заказа, основанную на ценах продуктов acc — текущее значение аккумулятора
+   }
+   getProducts() {
+       return this.products;
+   }
+}
+// Пример использования класса
+class Product {
+   constructor(name, price) {
+       this.name = name;
+       this.price = price;
    }
 }
 
+const order = new Order(12345);
 
-const book = new Book("BookName1", "Author1", 123);
-book.displayInfo(); // "Title: BookName1, Author: Author1, Pages: 123"
+const product1 = new Product("Phone", 500);
+order.addProduct(product1);
+console.log(order.getProducts());
+const product2 = new Product("Headphones", 100);
+order.addProduct(product2);
+console.log(order.getProducts());
 
-
-
-// Задание 2: "Управление списком студентов"
-// Реализуйте класс Student, представляющий студента, со следующими свойствами и методами:
-
-// Свойство name (имя) - строка, имя студента.
-// Свойство age (возраст) - число, возраст студента.
-// Свойство grade (класс) - строка, класс, в котором учится студент.
-// Метод displayInfo() - выводит информацию о студенте в консоль.
-
-// Пример использования класса
-class Student {
-   constructor(name,age,grade){
-      this.name = name;
-      this.age = age;
-      this.grade = grade;
-   }
-   displayInfo(){    
-      console.log( `Name: ${this.name}, Age: ${this.age}, Grade: ${this.grade}`);
-   }
-
-}
-const student = new Student("John Smith", 16, "10th grade");
-student.displayInfo(); // "Name: John Smith, Age: 16, Grade: 10th grade"
+console.log(order.getTotalPrice()); // Вывод: 600
