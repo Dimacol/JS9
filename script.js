@@ -1,89 +1,59 @@
+// Задание 1. Получение данных о пользователе.
 
-// Урок 3. Объектно-ориентированное программирование в Javascript
-// Домашнее задание
-console.log(" -------------------------------------------------------------");
-console.log(`Задание 1: Управление персоналом компании`);
+// Реализуйте функцию getUserData, которая принимает идентификатор пользователя (ID) в качестве аргумента и использует fetch для получения
+//  данных о пользователе с заданным ID с удаленного сервера. Функция должна возвращать промис, который разрешается с данными о пользователе в виде объекта.
+//   Если пользователь с указанным ID не найден, промис должен быть отклонен с соответствующим сообщением об ошибке.
 
-// Реализуйте класс Employee (сотрудник), который имеет следующие свойства и методы:
-// Свойство name (имя) - строка, имя сотрудника.
-// Метод displayInfo() - выводит информацию о сотруднике (имя).
-class Employee {
-    constructor(name) {
-        this.name = name;
-    }
-    displayInfo() {
-        console.log(`Name: ${this.name}`);
-    }
+// Подсказка, с последовательностью действий:
+// getUserData использует fetch для получения данных о пользователе с удаленного сервера.
+//  Если запрос успешен (с кодом 200), функция извлекает данные из ответа с помощью response.json() и возвращает объект с данными о пользователе. 
+//  Если запрос неуспешен, функция отклоняет промис с сообщением об ошибке.
+
+// Работа должна быть выполнена с API: https://reqres.in/
+const url = 'https://reqres.in/api/users'
+function getUserData(userId) {
+    fetch(url + '/' + userId)    
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Ошибка загрузки данных: ' + response.status);
+        }
+    })
+    .then(data => {
+    // Обработка полученных данных пользователя
+         console.log(`Данные пользователя: id ${userId}`, data);
+    })
+    .catch(error => {
+        console.log('Ошибка:', error);
+      });
+};
+getUserData(8);
+// Реализуйте функцию saveUserData, которая принимает объект с данными о пользователе в качестве аргумента и использует fetch для отправки этих данных на удаленный сервер для сохранения. 
+// Функция должна возвращать промис, который разрешается, если данные успешно отправлены, или отклоняется в случае ошибки.
+// *Подсказка *
+// Пример использования функции
+const user = {
+  "name": "John Doe",
+  "job": "unknown"
 }
-
-// Реализуйте класс Manager (менеджер), который наследует класс Employee и имеет дополнительное свойство и метод:
-
-// Свойство department (отдел) - строка, отдел, в котором работает менеджер.
-// Метод displayInfo() - переопределяет метод displayInfo() родительского класса и выводит информацию о менеджере (имя и отдел).
-class Manager extends Employee {
-    constructor(name, department) {
-        super(name);
-        // this.name = name+' 1';
-        this.department = department;
-    };
-
-    displayInfo() {
-        console.log(`Name: ${this.name} \nDepartment: ${this.department}`);
-    };
+function saveUserData(user) {
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user),
+    })
+    .then(() => {
+        console.log('User data saved successfully');
+  })
+    .catch(error => {
+    console.log(error.message);
+  });
 }
-
-// // Пример использования классов
-const employee = new Employee("John Smith");
-employee.displayInfo();
-// Вывод:
-// Name: John Smith
-
-const manager = new Manager("Jane Doe", "Sales");
-manager.displayInfo();
-// Вывод:
-// Name: Jane Doe
-// Department: Sales
-
-console.log(" -------------------------------------------------------------");
-
-console.log(`Задание 2: Управление списком заказов`);
-
-// Реализуйте класс Order (заказ), который имеет следующие свойства и методы:
-
-// Свойство orderNumber (номер заказа) - число, уникальный номер заказа.
-// Свойство products (продукты) - массив, содержащий список продуктов в заказе.
-// Метод addProduct(product) - принимает объект product и добавляет его в список продуктов заказа.
-// Метод getTotalPrice() - возвращает общую стоимость заказа, основанную на ценах продуктов.
-class Order {
-   constructor(orderNumber) {
-       this.orderNumber = orderNumber;
-   }
-   products = [];//массив продуктов
-   addProduct(product) {
-       this.products.push(product);// принимает объект product и добавляет его в список продуктов заказа.
-   }
-   getTotalPrice() {
-       return this.products.reduce((acc, value) => acc + value.price, 0);//возвращает общую стоимость заказа, основанную на ценах продуктов acc — текущее значение аккумулятора
-   }
-   getProducts() {
-       return this.products;
-   }
-}
-// Пример использования класса
-class Product {
-   constructor(name, price) {
-       this.name = name;
-       this.price = price;
-   }
-}
-
-const order = new Order(12345);
-
-const product1 = new Product("Phone", 500);
-order.addProduct(product1);
-console.log(order.getProducts());
-const product2 = new Product("Headphones", 100);
-order.addProduct(product2);
-console.log(order.getProducts());
-
-console.log(order.getTotalPrice()); // Вывод: 600
+saveUserData();
+// saveUserData использует fetch для отправки данных о пользователе на удаленный сервер для сохранения. Она отправляет POST-запрос на URL-адрес /api/users с указанием
+//  типа содержимого application/json и сериализует объект с данными о пользователе в JSON-строку с помощью JSON.stringify(). 
+//  Если запрос успешен (с кодом 201), функция разрешает промис. Если запрос неуспешен, функция отклоняет промис с сообщением об ошибке.
+// Работа должна быть выполнена с API: https://reqres.in/
